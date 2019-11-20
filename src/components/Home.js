@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 
 const Home = (props) => {
     
-
     
     const notes = props.data.notes.map(note => note.name)
     const folders = props.data.folders.map(folder =><Link to={`/folder/${folder.id}`}>{folder.name}</Link>);
