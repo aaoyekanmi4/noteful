@@ -4,8 +4,7 @@ import NoteMain from './NoteMain'
 const Note = (props) => {
     return (
         <div>
-            <NoteMain />
-            <NoteSideBar />
+        
         </div> 
     )
 }

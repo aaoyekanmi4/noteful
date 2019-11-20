@@ -1,7 +1,7 @@
 import React from 'react';
 import Main from './Main'
 import SideBar from './SideBar'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 
 
 const Folder = (props) => {
@@ -16,7 +16,7 @@ const Folder = (props) => {
    
     </NavLink>);
   
-    const notes = props.notes.map(note => note.name)
+    const notes = props.notes.map(note =><Link to={`/note/${note.id}`}>{note.name}</Link>  )
     return <div>
         <Main notes={notes} />
         <SideBar folders={folders} />

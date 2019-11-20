@@ -1,7 +1,7 @@
 import React from 'react';
 
 const NoteSideBar = (props) => {
-    return <div>NoteSidebar</div>
+return <div>{props.folder.name}</div>
 }
 
 export default NoteSideBar;

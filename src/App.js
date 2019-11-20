@@ -5,18 +5,26 @@ import STORE from './dummy-store';
 import Header from './components/Header';
 import PageNotFound from './components/PageNotFound'
 import Home from './components/Home';
-import Note from './components/Note';
+import NoteMain from './components/NoteMain';
+import NoteSideBar from './components/NoteSideBar';
 
 import Folder from './components/Folder';
 
 class App extends React.Component {
   state= {data:STORE};
   
-  getNotesByFolder = (id) => {
-      return this.state.data.notes.filter(note => note.folderId === id);
+  getNotesByFolder = (folderId) => {
+      return this.state.data.notes.filter(note => note.folderId === folderId);
   }
-  getFolder = (id) => {
-    return this.state.data.folders.filter(folder => folder.id === id);
+  getFolder = (folderId) => {
+    return this.state.data.folders.find(folder => folder.id === folderId);
+  }
+  getNote = (noteId) => {
+    return this.state.data.notes.find(note =>note.id === noteId)
+  }
+  getFolderFromNote = (noteId) => {
+    let folderId = this.getNote(noteId).folderId;
+    return this.getFolder(folderId);
   }
   
   render () {
@@ -35,7 +43,13 @@ class App extends React.Component {
                 notes={this.getNotesByFolder(match.params.folder_id)}
                 folders={this.state.data.folders}/>}/>
 
-        <Route exact path="/note/:note_id" render ={() => <Note data={this.state.data}/>}/>
+        <Route exact path="/note/:note_id" 
+               render ={({ match }) => 
+               <>
+               <NoteMain note={this.getNote(match.params.note_id)}/>
+               <NoteSideBar folder ={this.getFolderFromNote(match.params.note_id)}/>
+               </>
+               }/>
         <Route component={PageNotFound} />
       </Switch>
   

@@ -1,7 +1,9 @@
 import React from 'react';
 
-const NoteMain = () => {
-    return <div>NoteMain</div>
+const NoteMain = (props) => {
+    return <div>
+     {props.note.name}  
+    </div>
 }
 
 export default NoteMain;
