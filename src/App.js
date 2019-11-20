@@ -1,26 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Route, Switch } from 'react-router-dom'
+import STORE from './dummy-store';
+import Header from './components/Header';
+import PageNotFound from './components/PageNotFound'
+import Home from './components/Home';
+import Note from './components/Note';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Folder from './components/Folder';
+
+class App extends React.Component {
+  
+  
+  
+  
+  render () {
+    console.log(STORE);
+    return (
+      <div className="App">
+        <Header />
+     <Switch>
+        <Route exact path="/" component ={Home}/>
+        <Route exact path="/folder/:folder_id" component ={Folder}/>
+        <Route exact path="/note/:note_id" component={Note} />
+        <Route component={PageNotFound} />
+      </Switch>
+  
+      </div>
+    );
+  }
 }
 
 export default App;
