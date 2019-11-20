@@ -1,17 +1,18 @@
 import React from 'react';
 import Main from './Main';
 import SideBar from './SideBar';
+import { Link } from 'react-router-dom'
 
 const Home = (props) => {
     
 
     
-
-    console.log("Home", props.data)
+    const notes = props.data.notes.map(note => note.name)
+    const folders = props.data.folders.map(folder =><Link to={`/folder/${folder.id}`}>{folder.name}</Link>);
     return (
         <div>
-          <Main notes = {props.data.notes}/>
-          <SideBar folders = {props.data.folders}/>
+          <Main notes = {notes}/>
+          <SideBar folders ={folders}/>
         </div>
     )
 }
