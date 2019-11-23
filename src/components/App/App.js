@@ -1,14 +1,13 @@
 import React from 'react';
 import './App.css';
 import { Route, Switch } from 'react-router-dom'
-import STORE from './dummy-store';
-import Header from './components/Header';
-import PageNotFound from './components/PageNotFound'
-import Home from './components/Home';
-import NoteMain from './components/NoteMain';
-import NoteSideBar from './components/NoteSideBar';
-
-import Folder from './components/Folder';
+import STORE from '../../dummy-store';
+import Header from '../Header/Header';
+import PageNotFound from '../PageNotFound/PageNotFound'
+import NoteMain from '../NoteMain/NoteMain';
+import NoteSideBar from '../NoteSideBar/NoteSideBar';
+import Main from '../Main/Main';
+import SideBar from '../SideBar/SideBar';
 
 class App extends React.Component {
   state= {data:STORE};
@@ -35,20 +34,27 @@ class App extends React.Component {
      <Switch>
         <Route exact path="/" 
           render ={() => 
-            <Home data={this.state.data}/>}/>
+            <div className="content">
+            <SideBar folders ={this.state.data.folders} />  
+            <Main notes={this.state.data.notes} />
+       
+            </div>
+          }/>
         <Route exact path="/folder/:folder_id" 
           render ={({ match }) => 
-            <Folder 
-                selectedFolder={this.getFolder(match.params.folder_id)} 
-                notes={this.getNotesByFolder(match.params.folder_id)}
-                folders={this.state.data.folders}/>}/>
-
+              <div className="content">
+              <SideBar folders={this.state.data.folders}/>
+              <Main notes={this.getNotesByFolder(match.params.folder_id)}/>
+          
+             </div>
+            }/>
         <Route exact path="/note/:note_id" 
                render ={({ match }) => 
-               <>
+               <div className="content">
+               <NoteSideBar folder ={this.getFolderFromNote(match.params.note_id)}/>  
                <NoteMain note={this.getNote(match.params.note_id)}/>
-               <NoteSideBar folder ={this.getFolderFromNote(match.params.note_id)}/>
-               </>
+           
+               </div>
                }/>
         <Route component={PageNotFound} />
       </Switch>
