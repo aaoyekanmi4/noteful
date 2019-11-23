@@ -26,6 +26,7 @@ h1 {
 .content {
     display:flex;
     flex-direction: row;
+    justify-content:space-evenly;
     
 }
 
@@ -44,14 +45,26 @@ h2 {
 
 }
 
+.sidebar-button, .main-button {
+  font-size:30px;
+  border: 1px solid black;
+  width:222px;
+  text-align: center;
+  padding:10px;
+  color:black;
+  margin:10px
+  
+}
+
 .note-body {
     width:700px;
 }
 
 ul {
     list-style-type: none;
-    position:relative;   
-    left:50%;
+    padding-left: 0px;
+    left: auto;
+
 }
 
 .note-title-date {
@@ -61,6 +74,16 @@ ul {
     margin:10px;
     width:500px;
 
+}
+
+.note-sidebar {
+   font-size:35px;
+   width: 100%;
+   text-align:center;
+}
+
+button.folder {
+    width:222px;
 }
 
 

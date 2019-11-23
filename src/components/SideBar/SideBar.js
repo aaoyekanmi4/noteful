@@ -14,7 +14,14 @@ const SideBar = (props) => {
         </NavLink>);
         
 
-return <div><h2 className="folder-heading">folders</h2><nav className="sidebar">{folders}</nav></div>
+return (<div>
+          <h2 className="folder-heading">folders</h2>
+          <nav className="sidebar">
+            {folders}
+          <button className="sidebar-button">Add Folder</button>
+          </nav>
+         
+        </div>) 
 }
 
 export default SideBar;

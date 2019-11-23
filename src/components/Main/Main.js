@@ -17,6 +17,7 @@ const Main = (props) => {
 
     return (
     <main className="main">
+    <button className="main-button">Add Note</button>
    <ul>{notes}</ul> </main>
     ) 
 }
