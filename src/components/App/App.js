@@ -39,8 +39,8 @@ class App extends React.Component {
            <Route exact path="/note/:note_id" 
                   render ={({ match }) => 
                   <div className="content">
-                  <NoteSideBar folder ={data.getFolderFromNote(match.params.note_id)}/>  
-                  <NoteMain note={data.getNote(match.params.note_id)}/>
+                  <NoteSideBar note_id ={match.params.note_id}/>  
+                  <NoteMain note_id={match.params.note_id}/>
               
                   </div>
                   }/>

@@ -59,19 +59,6 @@ class NoteContextProvider extends React.Component{
       }
         
     
-    getNotesByFolder = (folderId) => {
-        return this.state.notes.filter(note => note.folderId === folderId);
-    }
-    getFolder = (folderId) => {
-    return this.state.folders.find(folder => folder.id === folderId);
-    }
-    getNote = (noteId) => {
-    return this.state.notes.find(note =>note.id === noteId)
-    }
-    getFolderFromNote = (noteId) => {
-    let folderId = this.getNote(noteId).folderId;
-    return this.getFolder(folderId);
-    }
         
     
 
@@ -79,10 +66,6 @@ class NoteContextProvider extends React.Component{
         return (
             <Provider value={{folders:this.state.folders,
                               notes:this.state.notes,
-                              getNotesByFolder: this.getNotesByFolder,
-                              getFolder:this.getFolder,
-                              getNote:this.getNote,
-                              getFolderFromNote:this.getFolderFromNote,
                               delete:this.handleDelete}}>
                 {this.props.children}
             </Provider>
