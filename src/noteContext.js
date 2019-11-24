@@ -15,32 +15,38 @@ class NoteContextProvider extends React.Component{
 
     componentDidMount() {
        
-   this.fetchDataFromAPI();
+       this.fetchDataFromAPI();
  
     
     }
-    componentDidUpdate() {
-        console.log(this.state.folders)
-        console.log(this.state.notes)
-    }
-
-    
-    
+ 
  
     fetchDataFromAPI = () => {
         Promise.all([   fetch('http://localhost:9090/folders'), fetch('http://localhost:9090/notes')])
-        .then(async ([fds, nts]) =>{
-            const f = await fds.json();
-           const n = await nts.json();
-           return [f, n]
+        .then(responses => {
+            if(!(responses.every(response => response.ok))) {
+                throw new Error('Fetch failed');
+            }
+            else {
+                return responses;
+            }
+        })
+        .then(async ([folders, notes]) =>{
+            folders = await folders.json();
+            notes = await notes.json();
+           return [folders, notes]
          } )
         .then(responsesJSON =>{
             this.setState({folders: responsesJSON[0]})
             this.setState({notes:responsesJSON[1]})
-        } )
+        } ).catch(err => {
+           
+            console.log(err);
+          });
+      }
         
 
-    }
+    
     
     handleDelete = (id) => {
      
@@ -49,11 +55,16 @@ class NoteContextProvider extends React.Component{
             headers: {
               'content-type': 'application/json'
             },
-          }).then(res =>  res.json())
-          .then(data => {
-            
+          }).then(response => {
+              if (!response.ok){
+                  throw new Error("Delete request failed")
+              }
+          return response.json()})
+          .then(() => {
             let notesWithDeletion = this.state.notes.filter(note => note.id !== id);
             this.setState({notes:notesWithDeletion});
+          }).catch(err => {
+              console.log(err)
           })
         
       }
@@ -62,7 +73,7 @@ class NoteContextProvider extends React.Component{
         
     
 
-    render() {
+    render(){
         return (
             <Provider value={{folders:this.state.folders,
                               notes:this.state.notes,
@@ -71,8 +82,9 @@ class NoteContextProvider extends React.Component{
             </Provider>
         )
     }
-
 }
+
+
 
 export {NoteContextProvider, Consumer as NoteContextConsumer};
 
