@@ -22,14 +22,12 @@ class App extends React.Component {
        
         <Switch>
       
-           <Route exact path="/" 
-             render ={() => 
-               <div className="content">
-               <SideBar  />  
-               <Main  />
-          
+           <Route exact path="/">
+                <div className="content">
+                  <SideBar/>  
+                  <Main />
                </div>
-             }/>
+             </Route >
            <Route exact path="/folder/:folder_id" 
              render ={({ match }) => 
                  <div className="content">

@@ -41,8 +41,24 @@ class NoteContextProvider extends React.Component{
         
 
     }
-
+    
+    handleDelete = (id) => {
+     
+        fetch(`http://localhost:9090/notes/${id}`, {
+            method: 'DELETE',
+            headers: {
+              'content-type': 'application/json'
+            },
+          }).then(res =>  res.json())
+          .then(data => {
+            
+            let notesWithDeletion = this.state.notes.filter(note => note.id !== id);
+            this.setState({notes:notesWithDeletion});
+          })
         
+      }
+        
+    
     getNotesByFolder = (folderId) => {
         return this.state.notes.filter(note => note.folderId === folderId);
     }
@@ -66,7 +82,8 @@ class NoteContextProvider extends React.Component{
                               getNotesByFolder: this.getNotesByFolder,
                               getFolder:this.getFolder,
                               getNote:this.getNote,
-                              getFolderFromNote:this.getFolderFromNote}}>
+                              getFolderFromNote:this.getFolderFromNote,
+                              delete:this.handleDelete}}>
                 {this.props.children}
             </Provider>
         )

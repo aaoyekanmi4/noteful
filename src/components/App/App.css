@@ -75,6 +75,16 @@ ul {
     width:500px;
 
 }
+.delete-button {
+  font-size:20px;
+  background-color:red;
+  width:100px;
+  text-align: center;
+  padding:10px;
+  color:white;;
+  margin-left:65px;
+  
+}
 
 .note-sidebar {
    font-size:35px;
