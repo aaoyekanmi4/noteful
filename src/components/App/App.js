@@ -1,63 +1,71 @@
 import React from 'react';
 import './App.css';
 import { Route, Switch } from 'react-router-dom'
-import STORE from '../../dummy-store';
+
 import Header from '../Header/Header';
 import PageNotFound from '../PageNotFound/PageNotFound'
 import NoteMain from '../NoteMain/NoteMain';
 import NoteSideBar from '../NoteSideBar/NoteSideBar';
 import Main from '../Main/Main';
 import SideBar from '../SideBar/SideBar';
+import { NoteContextConsumer } from '../../noteContext';
+
+
 
 class App extends React.Component {
-  state= {data:STORE};
   
-  getNotesByFolder = (folderId) => {
-      return this.state.data.notes.filter(note => note.folderId === folderId);
+
+  dataLoaded = (data) => {
+    if (data.notes && data.folders) {
+      console.log(data);
+      return (
+       
+        <Switch>
+      
+           <Route exact path="/" 
+             render ={() => 
+               <div className="content">
+               <SideBar  />  
+               <Main  />
+          
+               </div>
+             }/>
+           <Route exact path="/folder/:folder_id" 
+             render ={({ match }) => 
+                 <div className="content">
+                 <SideBar />
+                 <Main notes={data.getNotesByFolder(match.params.folder_id)}/>
+             
+                </div>
+               }/>
+           <Route exact path="/note/:note_id" 
+                  render ={({ match }) => 
+                  <div className="content">
+                  <NoteSideBar folder ={data.getFolderFromNote(match.params.note_id)}/>  
+                  <NoteMain note={data.getNote(match.params.note_id)}/>
+              
+                  </div>
+                  }/>
+                
+           <Route component={PageNotFound} />
+         </Switch>
+          )
+    } 
+    else {
+      return <h1>Loading....</h1>
+    }
   }
-  getFolder = (folderId) => {
-    return this.state.data.folders.find(folder => folder.id === folderId);
-  }
-  getNote = (noteId) => {
-    return this.state.data.notes.find(note =>note.id === noteId)
-  }
-  getFolderFromNote = (noteId) => {
-    let folderId = this.getNote(noteId).folderId;
-    return this.getFolder(folderId);
-  }
+
   
   render () {
 
     return (
       <div className="App">
         <Header />
-     <Switch>
-        <Route exact path="/" 
-          render ={() => 
-            <div className="content">
-            <SideBar folders ={this.state.data.folders} />  
-            <Main notes={this.state.data.notes} />
-       
-            </div>
-          }/>
-        <Route exact path="/folder/:folder_id" 
-          render ={({ match }) => 
-              <div className="content">
-              <SideBar folders={this.state.data.folders}/>
-              <Main notes={this.getNotesByFolder(match.params.folder_id)}/>
-          
-             </div>
-            }/>
-        <Route exact path="/note/:note_id" 
-               render ={({ match }) => 
-               <div className="content">
-               <NoteSideBar folder ={this.getFolderFromNote(match.params.note_id)}/>  
-               <NoteMain note={this.getNote(match.params.note_id)}/>
-           
-               </div>
-               }/>
-        <Route component={PageNotFound} />
-      </Switch>
+        <NoteContextConsumer>
+        
+         {context => (this.dataLoaded(context))}
+       </NoteContextConsumer>
   
       </div>
     );
