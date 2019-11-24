@@ -34,7 +34,7 @@ class App extends React.Component {
              render ={({ match }) => 
                  <div className="content">
                  <SideBar />
-                 <Main notes={data.getNotesByFolder(match.params.folder_id)}/>
+                 <Main folder_id={match.params.folder_id}/>
              
                 </div>
                }/>
