@@ -1,14 +1,20 @@
 import React from 'react';
 import { getFolderFromNote } from '../../noteHelpers';
 import { NoteContextConsumer } from '../../noteContext';
-//data.getFolderFromNote(match.params.note_id)
+import { Link } from 'react-router-dom';
+
 const NoteSideBar = (props) => {
 return (<NoteContextConsumer>
-    {context => 
-<div>
-    <h4 style={{textAlign:'center'}} className="note-sidebar">{getFolderFromNote(props.note_id, context)}</h4>
-    <button className="sidebar-button">Go Back</button>
-    </div>
+    {context => {
+        const folder= getFolderFromNote(props.note_id, context)
+        console.log(folder.id);
+
+    return (<div>
+        <h4 style={{textAlign:'center'}} className="note-sidebar">{folder.name}</h4>
+        <button className="sidebar-button"><Link to={`/folder/${folder.id}`}>Go Back</Link></button>
+        </div>)
+    }
+
 }
     </NoteContextConsumer>
     )

@@ -9,7 +9,7 @@
         return data.notes.find(note =>note.id === noteId)
     }
     export const getFolderFromNote = (noteId, data) => {
-        let folderId = data.notes.find(note =>note.id === noteId)
+        let folderId = data.notes.find(note =>note.id === noteId).folderId;
         return data.folders.find(folder => folder.id === folderId);
     }
     export const convertDate = (isoDate) =>{

@@ -5,25 +5,36 @@ import { getNotesByFolder, convertDate } from '../../noteHelpers';
 
 const Main = (props) => {
  
-   
+    function createNotes (notes, deleteMethod) {
+        return notes.map(note =>
+           <li key={note.id} 
+               className="note-title-date" > 
+               <Link 
+                   to={`/note/${note.id}`}>
+                       <h2>{note.name}</h2>
+                </Link>
+               <p>Date Modified: {convertDate(note.modified)}
+                    <button onClick={()=> deleteMethod(note.id)}
+                            className="delete-button">Delete
+                    </button>
+                </p>
+           </li> )
+    }
+
     return (
     <main className="main">
     <button className="main-button">Add Note</button>
    <ul>  
        <NoteContextConsumer>
-         {context => {if (!props.folder_id){ 
-             return (context.notes.map(note =><li key={note.id} className="note-title-date" > 
-                <Link to={`/note/${note.id}`}><h2>{note.name}</h2></Link>
-                <p>Date Modified: {convertDate(note.modified)}<button onClick={()=>context.delete(note.id)}className="delete-button">Delete</button></p>
-                </li>  )) }
-                else {
-                    return (getNotesByFolder(props.folder_id, context).map(note =><li key={note.id} className="note-title-date" > 
-                    <Link to={`/note/${note.id}`}><h2>{note.name}</h2></Link>
-                    <p>Date Modified: {convertDate(note.modified)}<button onClick={()=>context.delete(note.id)} className="delete-button">Delete</button></p>
-                    </li>  )) }
-                }
+         {context => {
+             if (!props.folder_id){ 
+                 return createNotes(context.notes, context.delete)
+             }
+              const notesByFolder = getNotesByFolder(props.folder_id, context);
+              return createNotes(notesByFolder, context.delete)
 
                 }
+            }
          </NoteContextConsumer> 
 </ul> 
 </main>
