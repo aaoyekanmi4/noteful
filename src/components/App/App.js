@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './App.css';
 import { Route, Switch } from 'react-router-dom'
 
@@ -8,7 +8,7 @@ import NoteMain from '../NoteMain/NoteMain';
 import NoteSideBar from '../NoteSideBar/NoteSideBar';
 import Main from '../Main/Main';
 import SideBar from '../SideBar/SideBar';
-import { NoteContextConsumer } from '../../noteContext';
+import { NoteContext } from '../../noteContext';
 
 
 
@@ -50,16 +50,18 @@ class App extends React.Component {
       return <h1>Loading....</h1>
     }
   }
+  
 
   
   render () {
-
+   
     return (
       <div className="App">
         <Header />
-        <NoteContextConsumer>
-        {context => (this.dataLoaded(context))}
-       </NoteContextConsumer>
+        <NoteContext.Consumer>
+          {context => this.dataLoaded(context)}
+        </NoteContext.Consumer>
+     
   
       </div>
     );

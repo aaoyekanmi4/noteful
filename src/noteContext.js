@@ -1,10 +1,7 @@
 import React from 'react';
 
 
-
-
-
-const { Provider, Consumer } = React.createContext();
+const NoteContext = React.createContext();
 
 class NoteContextProvider extends React.Component{
     state = {
@@ -75,16 +72,16 @@ class NoteContextProvider extends React.Component{
 
     render(){
         return (
-            <Provider value={{folders:this.state.folders,
+            <NoteContext.Provider value={{folders:this.state.folders,
                               notes:this.state.notes,
                               delete:this.handleDelete}}>
                 {this.props.children}
-            </Provider>
+            </NoteContext.Provider>
         )
     }
 }
 
 
 
-export {NoteContextProvider, Consumer as NoteContextConsumer};
+export {NoteContextProvider, NoteContext};
 
