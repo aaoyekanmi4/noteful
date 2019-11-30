@@ -10,7 +10,7 @@ const NoteSideBar = (props) => {
         const folder= getFolderFromNote(props.note_id, context)
         console.log(folder.id);
 
-    return (<div>
+       return (<div>
         <h4 style={{textAlign:'center'}} className="note-sidebar">{folder.name}</h4>
         <button className="sidebar-button"><Link to={`/folder/${folder.id}`}>Go Back</Link></button>
         </div>)

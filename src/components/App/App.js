@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import './App.css';
 import { Route, Switch } from 'react-router-dom'
 
@@ -6,6 +6,7 @@ import Header from '../Header/Header';
 import PageNotFound from '../PageNotFound/PageNotFound'
 import NoteMain from '../NoteMain/NoteMain';
 import NoteSideBar from '../NoteSideBar/NoteSideBar';
+import AddNote from '../AddNote/AddNote';
 import Main from '../Main/Main';
 import SideBar from '../SideBar/SideBar';
 import { NoteContext } from '../../noteContext';
@@ -13,6 +14,7 @@ import { NoteContext } from '../../noteContext';
 
 
 class App extends React.Component {
+   static contextType = NoteContext;
    
   appJSX = (<Switch>
       
@@ -38,7 +40,9 @@ class App extends React.Component {
      
          </div>
          }/>
-       
+   <Route exact path="/add-note"
+   render ={({ history }) =>
+   <AddNote history={history}/> }/>    
   <Route component={PageNotFound} />
 </Switch>)
 
@@ -58,10 +62,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <Header />
-        <NoteContext.Consumer>
-          {context => this.dataLoaded(context)}
-        </NoteContext.Consumer>
-     
+     {this.dataLoaded(this.context)}
   
       </div>
     );

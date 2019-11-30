@@ -26,7 +26,7 @@ const Main = (props) => {
 
     return (
     <main className="main">
-    <button className="main-button">Add Note</button>
+    <button className="main-button"><Link to='/add-note'>Add Note</Link></button>
    <ul>  
        
          {props.folder_id ? createNotes(notesByFolder): createNotes(context.notes)} 

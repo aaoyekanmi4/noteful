@@ -4,9 +4,10 @@ import { convertDate, getNote } from '../../noteHelpers';
 
 
 const NoteMain = (props) => {
-  const note = getNote(props.note_id, context);
+
   const context = useContext(NoteContext);
-  const dayMonthYearDate = convertDate(note);
+  const note = getNote(props.note_id, context);
+  const dayMonthYearDate = convertDate(note.modified);
   return(
        
           

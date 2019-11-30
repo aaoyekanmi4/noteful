@@ -4,17 +4,36 @@ import React from 'react';
 const NoteContext = React.createContext();
 
 class NoteContextProvider extends React.Component{
+    
     state = {
      folders:null,
      notes:null
     }
         
 
-    componentDidMount() {
-       
-       this.fetchDataFromAPI();
- 
-    
+    componentDidMount() {     
+       this.fetchDataFromAPI();   
+    }
+
+    handleAddNote = (note) => {
+        console.log('add note ran from context')
+        let notesCopy = [...this.state.notes]
+        notesCopy.push(note)
+        this.setState({notes:notesCopy})
+    }
+
+    handleAddFolder = (folder) => {
+        let foldersCopy = [...this.state.folders]
+        foldersCopy.push(folder)
+        this.setState({folders:foldersCopy})
+    }
+
+    handleAddFolder = (folder) => {
+        console.log('add folder ran from context')
+        let foldersCopy = [...this.state.folders]
+        foldersCopy.push(folder);
+        this.setState({folders: foldersCopy})
+      
     }
  
  
@@ -73,8 +92,10 @@ class NoteContextProvider extends React.Component{
     render(){
         return (
             <NoteContext.Provider value={{folders:this.state.folders,
-                              notes:this.state.notes,
-                              delete:this.handleDelete}}>
+                                         notes:this.state.notes,
+                                         delete:this.handleDelete,
+                                         addNote:this.handleAddNote,
+                                         addFolder: this.handleAddFolder}}>
                 {this.props.children}
             </NoteContext.Provider>
         )
