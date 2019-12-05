@@ -4,11 +4,15 @@ import './Header.css'
 
 
 
-const Header = (props) => {
-    return (<header>
-        <h1 style={{fontSize:'45px'}}><Link to='/' className="title">Noteful</Link></h1>
+const Header = () => {
+    return (
+        <header>
+            <h1 style={{fontSize:'45px'}}>
+                <Link to='/' className="title">Noteful</Link>
+            </h1>
     
-    </header>)
+        </header>
+    )
 }
 
 export default Header;

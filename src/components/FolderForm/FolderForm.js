@@ -1,10 +1,11 @@
 import React from 'react';
-import { NoteContext } from '../noteContext'
+import { NoteContext } from '../../noteContext'
+import PropTypes from 'prop-types';
+import './FolderForm.css'
 
-class AddFolder extends React.Component {
+class FolderForm extends React.Component {
     static contextType = NoteContext;
 
-    
 
     state = {
         name:'',        
@@ -39,19 +40,22 @@ class AddFolder extends React.Component {
 
     render() {
         return (   
-        <div>
-            <form onSubmit={this.handleAddFolder}>
+        <>
+            <form className='folder-form' onSubmit={this.handleAddFolder}>
        
                 <label htmlFor="name"> Folder Name: </label>
-            <input type="text" onChange={e => this.setState({name: e.target.value})}value={this.state.name} name="name" />
+            <input className='folder-input' type="text" onChange={e => this.setState({name: e.target.value})}value={this.state.name} name="name" />
         
     
-            <input type="submit" />
+            <input type="submit" value="Add folder" />
         </form>
-        </div> 
+        </> 
         )
 
     }
 }
+FolderForm.propTypes = {
+    hide: PropTypes.func
+}
+export default FolderForm
 
-export default AddFolder

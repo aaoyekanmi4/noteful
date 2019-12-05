@@ -1,0 +1,26 @@
+.title {
+    width:400px;
+    margin:20px
+}
+
+
+textarea {
+
+    width:400px;
+    height:100px;
+    margin:20px;
+}
+select {
+    width:250px;
+    height:26px;
+    margin:20px;
+}
+label {
+    display:block
+}
+
+input[type = submit] {
+    margin-top:20px;
+    float: right;
+    width:75px;
+}

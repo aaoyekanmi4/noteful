@@ -7,7 +7,8 @@ class NoteContextProvider extends React.Component{
     
     state = {
      folders:null,
-     notes:null
+     notes:null,
+     loaded: false
     }
         
 
@@ -18,7 +19,7 @@ class NoteContextProvider extends React.Component{
     handleAddNote = (note) => {
         console.log('add note ran from context')
         let notesCopy = [...this.state.notes]
-        notesCopy.push(note)
+        notesCopy.unshift(note)
         this.setState({notes:notesCopy})
     }
 
@@ -28,13 +29,7 @@ class NoteContextProvider extends React.Component{
         this.setState({folders:foldersCopy})
     }
 
-    handleAddFolder = (folder) => {
-        console.log('add folder ran from context')
-        let foldersCopy = [...this.state.folders]
-        foldersCopy.push(folder);
-        this.setState({folders: foldersCopy})
-      
-    }
+  
  
  
     fetchDataFromAPI = () => {
@@ -55,6 +50,7 @@ class NoteContextProvider extends React.Component{
         .then(responsesJSON =>{
             this.setState({folders: responsesJSON[0]})
             this.setState({notes:responsesJSON[1]})
+            this.setState({loaded:true})
         } ).catch(err => {
            
             console.log(err);
@@ -90,15 +86,22 @@ class NoteContextProvider extends React.Component{
     
 
     render(){
-        return (
-            <NoteContext.Provider value={{folders:this.state.folders,
-                                         notes:this.state.notes,
-                                         delete:this.handleDelete,
-                                         addNote:this.handleAddNote,
-                                         addFolder: this.handleAddFolder}}>
-                {this.props.children}
-            </NoteContext.Provider>
-        )
+      return(
+        <div>
+            {!this.state.loaded ? 
+                <div>Loading notes and folders...</div> :
+                    <NoteContext.Provider 
+                        value={{folders:this.state.folders,
+                                notes:this.state.notes,
+                                delete:this.handleDelete,
+                                addNote:this.handleAddNote,
+                                addFolder: this.handleAddFolder}}>
+                        {this.props.children}
+                    </NoteContext.Provider>
+            }
+        </div>) 
+            
+
     }
 }
 

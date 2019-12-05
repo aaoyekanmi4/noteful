@@ -12,9 +12,9 @@ h1 {
 
 .folder {
 
-  font-size:30px;
+  font-size:20px;
   border: 1px solid black;
-  width:200px;
+ 
   text-align: center;
   padding:10px;
   color:black;
@@ -27,11 +27,15 @@ h1 {
     display:flex;
     flex-direction: row;
     justify-content:space-evenly;
+ 
     
 }
 
 h2 {
-    font-size:40px;
+    font-size:32px;
+    margin-top:10px;
+    margin-bottom:10px;
+    
 }
 
 .folder-heading {
@@ -44,14 +48,24 @@ h2 {
 
 
 }
+.active {
+    background-color:lightcoral;
+    text-decoration:none;
 
+}
+
+.main {
+    overflow:auto;
+    height:100vh;
+}
 .sidebar-button, .main-button {
-  font-size:30px;
+  background-color:purple;  
+  cursor:pointer;
+  font-size:20px;
   border: 1px solid black;
-  width:222px;
   text-align: center;
   padding:10px;
-  color:black;
+  color:white;
   margin:10px
   
 }
@@ -67,22 +81,23 @@ ul {
 
 }
 
+
 .note-title-date {
     border:1px solid black;
     padding:10px;
     color:black;
     margin:10px;
-    width:500px;
+    width:300px;
 
 }
 .delete-button {
-  font-size:20px;
+  font-size:16px;
   background-color:red;
-  width:100px;
+
   text-align: center;
-  padding:10px;
+  padding:5px;
   color:white;;
-  margin-left:65px;
+  margin-left:70%;
   
 }
 
@@ -101,4 +116,28 @@ button.folder {
     display:flex;
     flex-direction:column;
     margin-left:10%;
+}
+
+@media(max-width: 630px) {
+    .content{
+        flex-direction:column;
+        align-items:center;
+    }
+    .main {
+        display:flex;
+        align-items:center;
+        flex-direction:column;
+        overflow:visible;
+    }
+    .title {
+        text-align:center;
+    }
+    .sidebar {
+        margin-left:0px;
+        
+    }
+    .folder-heading {
+        margin-left:0px;
+        font-size:20px;
+    }
 }
