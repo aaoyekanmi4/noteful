@@ -13,8 +13,8 @@ const NoteSideBar = (props) => {
                 className="note-sidebar">
                     {folder.name}
             </h4>
-            <button className="sidebar-button"onClick={()=>props.history.push("/")}>
-                Go Back
+            <button className="sidebar-button">
+                <Link to="/">Go Back</Link>
             </button>
         </div>
     )

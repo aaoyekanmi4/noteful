@@ -21,16 +21,18 @@ const Main = (props) => {
                   
                 </p>
                 <button onClick={()=> context.delete(note.id)}
-                            className="delete-button">Delete
-                    </button>
+                        className="delete-button"
+                >
+                    Delete
+                </button>
            </li>
         )
     }
 
     return (
         <main className="main">
-            <button className="main-button" onClick={()=>props.history.push("/add-note")}>
-                Add Note
+            <button className="main-button">
+                <Link to="/add-note"> Add Note</Link>  
             </button>
             <ul>  
                 { props.folder_id ? 

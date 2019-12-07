@@ -9,6 +9,11 @@ const NoteMain = (props) => {
   const context = useContext(NoteContext);
   const note = getNote(props.note_id, context);
   const dayMonthYearDate = convertDate(note.modified);
+
+  const deleteAndGoBack = (id) => {
+     context.delete(id);
+     props.history.push('/')
+  }
   
   return(        
       <main className="main">
@@ -17,6 +22,11 @@ const NoteMain = (props) => {
           <h4>Date Modified: {dayMonthYearDate}</h4>
         </div>
         <p className="note-body">{note.content}</p>
+        <button onClick={()=> deleteAndGoBack(note.id)}
+                className="delete-button"
+        >
+            Delete
+        </button>
       </main>
   )
               

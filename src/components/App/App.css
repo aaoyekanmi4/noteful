@@ -53,6 +53,9 @@ h2 {
     text-decoration:none;
 
 }
+button a {
+    color:white;
+}
 
 .main {
     overflow:auto;

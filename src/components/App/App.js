@@ -41,7 +41,7 @@ const App = () => {
           render ={({ match, history }) => 
             <div className="content">
               <NoteSideBar note_id ={match.params.note_id} history={history}/>  
-              <NoteMain note_id={match.params.note_id}/>
+              <NoteMain note_id={match.params.note_id} history={history}/>
             </div>
           }
         />
