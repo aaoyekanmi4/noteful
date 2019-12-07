@@ -51,7 +51,7 @@ class FolderForm extends React.Component {
         return (   
         <>
             <form className='folder-form' onSubmit={this.handleAddFolder}>
-            <button onClick={()=>this.props.hide()} style={{backgroundColor:'transparent'}}>X</button>
+            <button onClick={()=>this.props.hide()} style={{float:'right'}}>Close</button>
                 <label htmlFor="name"> Folder Name: </label>
             <input className='folder-input' type="text" onChange={e => this.setState({name: e.target.value, touched:true})}value={this.state.name} name="name" />
         
