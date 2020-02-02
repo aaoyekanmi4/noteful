@@ -33,7 +33,9 @@ class NoteContextProvider extends React.Component{
  
  
     fetchDataFromAPI = () => {
-        Promise.all([   fetch('http://localhost:9090/folders'), fetch('http://localhost:9090/notes')])
+        Promise.all([   fetch('http://localhost:8000/folders'), 
+                        fetch('http://localhost:8000/notes')]
+                        )
         .then(responses => {
             if(!(responses.every(response => response.ok))) {
                 throw new Error('Fetch failed');
@@ -48,6 +50,8 @@ class NoteContextProvider extends React.Component{
            return [folders, notes]
          } )
         .then(responsesJSON =>{
+            console.log(responsesJSON[0])
+            console.log(responsesJSON[1])
             this.setState({folders: responsesJSON[0]})
             this.setState({notes:responsesJSON[1]})
             this.setState({loaded:true})
@@ -62,7 +66,7 @@ class NoteContextProvider extends React.Component{
     
     handleDelete = (id) => {
      
-        fetch(`http://localhost:9090/notes/${id}`, {
+        fetch(`http://localhost:8000/notes/${id}`, {
             method: 'DELETE',
             headers: {
               'content-type': 'application/json'
@@ -71,9 +75,12 @@ class NoteContextProvider extends React.Component{
               if (!response.ok){
                   throw new Error("Delete request failed")
               }
-          return response.json()})
+            
+        })
           .then(() => {
+              console.log('.then ran')
             let notesWithDeletion = this.state.notes.filter(note => note.id !== id);
+          
             this.setState({notes:notesWithDeletion});
           }).catch(err => {
               console.log(err)

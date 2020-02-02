@@ -7,11 +7,12 @@ import PropTypes from 'prop-types';
 const NoteSideBar = (props) => {
     const context = useContext(NoteContext);
     const folder= getFolderFromNote(props.note_id, context)
+    console.log(folder)
     return (
         <div>
             <h4 style={{textAlign:'center'}} 
                 className="note-sidebar">
-                    {folder.name}
+                    {folder.title}
             </h4>
             <button className="sidebar-button">
                 <Link to="/">Go Back</Link>

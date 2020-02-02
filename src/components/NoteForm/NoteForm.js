@@ -27,16 +27,16 @@ class NoteForm extends React.Component {
     handleAddNote = (event) => {
         event.preventDefault();
 
-        fetch(`http://localhost:9090/notes`, {
+        fetch(`http://localhost:8000/notes`, {
             method: 'POST',
             headers: {
               'content-type': 'application/json'
             },
             body: JSON.stringify({
-                name: this.state.title.name,
+                title: this.state.title.name,
                 content:this.state.content,
                 modified: new Date().toISOString(), 
-                folderId: this.state.folderId
+                folderid: this.state.folderId
             })
           })
           .then(response => {
@@ -82,12 +82,12 @@ class NoteForm extends React.Component {
                 <label htmlFor="selectFolder">Select Folder</label>   
                 <select 
                     name="selectFolder" 
-                    value={this.state.folderId}
+                    value={this.state.folderid}
                     onChange={e => this.setState({folderId: e.target.value})}
                 >
                     {this.context.folders
                         .map(folder => 
-                            <option key={folder.id} value={folder.id}>{folder.name}</option>
+                            <option key={folder.id} value={folder.id}>{folder.title}</option>
                     )}
                 </select>
                 

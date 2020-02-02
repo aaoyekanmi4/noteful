@@ -27,7 +27,7 @@ const SideBar = () => {
             to={`/folder/${folder.id}`} 
             className="folder"
           > 
-          {folder.name}
+          {folder.title}
 
           </NavLink>))}
 

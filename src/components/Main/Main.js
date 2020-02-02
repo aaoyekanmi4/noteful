@@ -8,14 +8,14 @@ const Main = (props) => {
     
     const context = useContext(NoteContext);
     const notesByFolder = getNotesByFolder(props.folder_id, context);
-    
+    console.log(context.notes)
     function createNotes (notes) {
         return notes.map(note =>
            <li key={note.id} 
                className="note-title-date" > 
                <Link 
                    to={`/note/${note.id}`}>
-                       <h2>{note.name}</h2>
+                       <h2>{note.title}</h2>
                 </Link>
                <p>Date Modified: {convertDate(note.modified)}
                   

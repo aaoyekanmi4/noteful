@@ -18,7 +18,7 @@ const NoteMain = (props) => {
   return(        
       <main className="main">
         <div className="note-title-date">
-          <h2>{note.name}</h2>
+          <h2>{note.title}</h2>
           <h4>Date Modified: {dayMonthYearDate}</h4>
         </div>
         <p className="note-body">{note.content}</p>
