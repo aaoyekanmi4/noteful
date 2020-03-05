@@ -17,7 +17,6 @@ class NoteContextProvider extends React.Component{
     }
 
     handleAddNote = (note) => {
-        console.log('add note ran from context')
         let notesCopy = [...this.state.notes]
         notesCopy.unshift(note)
         this.setState({notes:notesCopy})
@@ -33,30 +32,28 @@ class NoteContextProvider extends React.Component{
  
  
     fetchDataFromAPI = () => {
-        Promise.all([   fetch('http://localhost:8000/folders'), 
-                        fetch('http://localhost:8000/notes')]
-                        )
-        .then(responses => {
-            if(!(responses.every(response => response.ok))) {
-                throw new Error('Fetch failed');
+        Promise.all([
+          fetch("https://secret-sierra-73971.herokuapp.com/folders"),
+          fetch("https://secret-sierra-73971.herokuapp.com/notes")
+        ])
+          .then(responses => {
+            if (!responses.every(response => response.ok)) {
+              throw new Error("Fetch failed");
+            } else {
+              return responses;
             }
-            else {
-                return responses;
-            }
-        })
-        .then(async ([folders, notes]) =>{
+          })
+          .then(async ([folders, notes]) => {
             folders = await folders.json();
             notes = await notes.json();
-           return [folders, notes]
-         } )
-        .then(responsesJSON =>{
-            console.log(responsesJSON[0])
-            console.log(responsesJSON[1])
-            this.setState({folders: responsesJSON[0]})
-            this.setState({notes:responsesJSON[1]})
-            this.setState({loaded:true})
-        } ).catch(err => {
-           
+            return [folders, notes];
+          })
+          .then(responsesJSON => {
+            this.setState({ folders: responsesJSON[0] });
+            this.setState({ notes: responsesJSON[1] });
+            this.setState({ loaded: true });
+          })
+          .catch(err => {
             console.log(err);
           });
       }
@@ -66,25 +63,27 @@ class NoteContextProvider extends React.Component{
     
     handleDelete = (id) => {
      
-        fetch(`http://localhost:8000/notes/${id}`, {
-            method: 'DELETE',
-            headers: {
-              'content-type': 'application/json'
-            },
-          }).then(response => {
-              if (!response.ok){
-                  throw new Error("Delete request failed")
-              }
-            
+        fetch(`https://secret-sierra-73971.herokuapp.com/notes/${id}`, {
+          method: "DELETE",
+          headers: {
+            "content-type": "application/json"
+          }
         })
-          .then(() => {
-              console.log('.then ran')
-            let notesWithDeletion = this.state.notes.filter(note => note.id !== id);
-          
-            this.setState({notes:notesWithDeletion});
-          }).catch(err => {
-              console.log(err)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error("Delete request failed");
+            }
           })
+          .then(() => {
+            let notesWithDeletion = this.state.notes.filter(
+              note => note.id !== id
+            );
+
+            this.setState({ notes: notesWithDeletion });
+          })
+          .catch(err => {
+            console.log(err);
+          });
         
       }
         

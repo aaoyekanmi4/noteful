@@ -27,31 +27,31 @@ class NoteForm extends React.Component {
     handleAddNote = (event) => {
         event.preventDefault();
 
-        fetch(`http://localhost:8000/notes`, {
-            method: 'POST',
-            headers: {
-              'content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                title: this.state.title.name,
-                content:this.state.content,
-                modified: new Date().toISOString(), 
-                folderid: this.state.folderId
-            })
+        fetch(`https://secret-sierra-73971.herokuapp.com/notes`, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json"
+          },
+          body: JSON.stringify({
+            title: this.state.title.name,
+            content: this.state.content,
+            modified: new Date().toISOString(),
+            folderid: this.state.folderId
+          })
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error("Can't reach API to add note");
+            }
+            return response.json();
           })
           .then(response => {
-              if (!response.ok){
-                  throw new Error("Can't reach API to add note")
-              }
-                 return response.json()
-          })
-          .then(response =>{
-            this.context.addNote(response)
-            this.props.history.push('/')
+            this.context.addNote(response);
+            this.props.history.push("/");
           })
           .catch(err => {
-              console.log(err)
-          })
+            console.log(err);
+          });
         
     }
   
